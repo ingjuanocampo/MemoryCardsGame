@@ -1,8 +1,8 @@
-package juanocampo.test.memoryflipgame
+package juanocampo.test.memoryflipgame.view.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import juanocampo.test.memoryflipgame.ui.main.MainFragment
+import juanocampo.test.memoryflipgame.R
 
 class MainActivity : AppCompatActivity() {
 

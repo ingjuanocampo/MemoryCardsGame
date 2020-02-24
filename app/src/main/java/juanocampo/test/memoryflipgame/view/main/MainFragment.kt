@@ -1,4 +1,4 @@
-package juanocampo.test.memoryflipgame.ui.main
+package juanocampo.test.memoryflipgame.view.main
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
