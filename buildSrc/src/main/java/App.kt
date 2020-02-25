@@ -3,6 +3,7 @@ import dependencies.Dependencies
 import base.projectImplementation
 import dependencies.coroutinesWithAndroid
 import dependencies.daggerWithAndroid
+import dependencies.architectureComponents
 import dependencies.testAndroidDependencies
 import org.gradle.api.artifacts.dsl.DependencyHandler
 
@@ -13,8 +14,7 @@ fun DependencyHandler.appDependencies() {
     appProjects()
     daggerWithAndroid()
     coroutinesWithAndroid()
-    implementation(Dependencies.viewModel)
-    implementation(Dependencies.extensions)
+    architectureComponents()
     implementation(Dependencies.picasso)
     implementation(Dependencies.appCompat)
     implementation(Dependencies.kotlinStdlib)
@@ -22,7 +22,6 @@ fun DependencyHandler.appDependencies() {
     implementation(Dependencies.recyclerView)
     testAndroidDependencies()
 }
-
 
 private fun DependencyHandler.appProjects() {
     projectImplementation(domain)

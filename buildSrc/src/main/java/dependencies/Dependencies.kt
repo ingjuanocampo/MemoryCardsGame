@@ -17,6 +17,8 @@ object Dependencies {
 
     const val extensions =  "androidx.lifecycle:lifecycle-extensions:2.2.0"
     const val viewModel =  "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    const val liveDataLifeCycle = "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0-alpha01"
+    const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-alpha01"
 
     const val kotlinStdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     const val appCompat = "androidx.appcompat:appcompat:$androidXVersion"
@@ -66,6 +68,13 @@ fun DependencyHandler.testAndroidDependencies() {
     testDependencies()
     androidTestImplementation(TestDependecies.androidTest)
     androidTestImplementation(TestDependecies.espresso)
+}
+
+fun DependencyHandler.architectureComponents() {
+    implementation(Dependencies.viewModel)
+    implementation(Dependencies.extensions)
+    implementation(Dependencies.liveDataLifeCycle)
+    implementation(Dependencies.liveData)
 }
 
 
