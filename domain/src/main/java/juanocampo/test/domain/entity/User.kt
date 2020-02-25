@@ -1,4 +1,7 @@
 package juanocampo.test.domain.entity
 
-class User {
-}
+data class User(
+    val id: String,
+    val selectedMode: String,
+    val matchedCards: List<String>
+)

@@ -2,7 +2,7 @@ package juanocampo.test.data.di
 
 import dagger.Module
 import dagger.Provides
-import juanocampo.test.data.UserRepositoryImpl
+import juanocampo.test.data.repository.UserRepositoryImpl
 import juanocampo.test.domain.repository.Repository
 
 @Module
