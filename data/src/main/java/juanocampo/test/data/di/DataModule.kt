@@ -14,7 +14,4 @@ class DataModule {
     @Provides
     fun providesUserRepository(settingLocalDataSource: SettingLocalDataSource, userLocalDataSource: UserLocalDataSource
     ): Repository = UserRepositoryImpl(settingLocalDataSource, userLocalDataSource)
-
-
-
 }

@@ -5,6 +5,7 @@ import juanocampo.test.data.entity.UserCache
 import juanocampo.test.data.repository.source.SettingLocalDataSource
 import juanocampo.test.data.repository.source.UserLocalDataSource
 import juanocampo.test.domain.entity.GameCard
+import juanocampo.test.domain.entity.GameOption
 import juanocampo.test.domain.entity.User
 import juanocampo.test.domain.repository.Repository
 
@@ -14,7 +15,7 @@ internal class UserRepositoryImpl(
 ) : Repository {
 
     override fun saveUser(user: User) {
-        userLocalDataSource.saveUser(UserCache(user.id, user.selectedMode, user.matchedCards))
+        userLocalDataSource.saveUser(UserCache(user.id, user.selectedGameOptionId, user.matchedCards))
     }
 
     override fun load(): User {
@@ -22,8 +23,8 @@ internal class UserRepositoryImpl(
         return User(userCache.id, userCache.selectedMode, userCache.matchedCards)
     }
 
-    override fun loadModeOptions(): List<Pair<Int, Int>> {
-        return settingLocalDataSource.loadGameModes()
+    override fun loadModeOptions(): List<GameOption> {
+        return settingLocalDataSource.loadGameModes().mapIndexed { index: Int, pair: Pair<Int, Int> ->  GameOption(index, pair)}
     }
 
     override fun loadGameCards(): List<GameCard> {

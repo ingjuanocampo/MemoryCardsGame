@@ -1,6 +1,7 @@
 package juanocampo.test.domain.repository
 
 import juanocampo.test.domain.entity.GameCard
+import juanocampo.test.domain.entity.GameOption
 import juanocampo.test.domain.entity.User
 
 interface Repository {
@@ -9,7 +10,7 @@ interface Repository {
 
     fun load(): User
 
-    fun loadModeOptions(): List<Pair<Int, Int>>
+    fun loadModeOptions(): List<GameOption>
 
     fun loadGameCards(): List<GameCard>
 }

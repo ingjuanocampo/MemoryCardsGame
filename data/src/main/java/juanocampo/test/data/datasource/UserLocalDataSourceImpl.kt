@@ -19,14 +19,14 @@ class UserLocalDataSourceImpl(context: Context): UserLocalDataSource {
     override fun saveUser(user: UserCache) {
         val edit = preference.edit()
         edit.putString(USER_ID, user.id)
-        edit.putString(SELECTED_MODE, user.selectedMode)
+        edit.putInt(SELECTED_MODE, user.selectedMode)
         edit.putStringSet(MATCHED_CARD, user.matchedCards.toMutableSet())
         edit.commit()
     }
 
     override fun load(): UserCache {
         val userId = preference.getString(USER_ID, "")
-        val selectedMode = preference.getString(SELECTED_MODE, "")
+        val selectedMode = preference.getInt(SELECTED_MODE, 0)
         val matchedCards = preference.getStringSet(MATCHED_CARD, emptySet())
         if (userId!= null && selectedMode!= null && matchedCards != null ) {
             return UserCache(userId, selectedMode, matchedCards.toList())
