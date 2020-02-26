@@ -19,7 +19,7 @@ class LobbyViewModel(private val loadOptionUseCase: LoadOptionUseCase,
 
     private val job: Job = Job()
 
-    private val lobbyScreenStatusLiveData = MutableLiveData<LobbyScreenStatus>()
+    val lobbyScreenStatusLiveData = MutableLiveData<LobbyScreenStatus>()
 
     fun loadOptions() = launch {
          when(val optionsResult = loadOptionUseCase()) {

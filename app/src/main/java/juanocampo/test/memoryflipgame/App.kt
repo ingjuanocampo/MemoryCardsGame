@@ -10,11 +10,6 @@ import javax.inject.Inject
 
 class App: Application(), HasAndroidInjector {
 
-
-    override fun androidInjector(): AndroidInjector<Any> {
-        return activityDispatchingAndroidInjector
-    }
-
     @Inject
     lateinit var activityDispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
@@ -26,5 +21,9 @@ class App: Application(), HasAndroidInjector {
         component.inject(this)
     }
 
+
+    override fun androidInjector(): AndroidInjector<Any> {
+        return activityDispatchingAndroidInjector
+    }
 
 }
