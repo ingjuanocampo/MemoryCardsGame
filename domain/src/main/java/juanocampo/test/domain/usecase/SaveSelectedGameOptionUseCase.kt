@@ -7,7 +7,7 @@ import juanocampo.test.domain.repository.Repository
 
 class SaveSelectedGameOptionUseCase(private val repository: Repository) {
 
-    operator fun invoke(gameOptionId: Int): ResultState {
+    operator fun invoke(gameOptionId: Int): ResultState<Boolean> {
         return try {
             val user = repository.load()
             user.selectedGameOptionId = gameOptionId

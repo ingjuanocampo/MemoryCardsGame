@@ -7,12 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import juanocampo.test.memoryflipgame.R
+import juanocampo.test.memoryflipgame.presentation.viewmodel.factory.LobbyViewModelFactory
+import javax.inject.Inject
 
 class MainFragment : Fragment() {
 
     companion object {
         fun newInstance() = MainFragment()
     }
+
+    @Inject
+    lateinit var mainViewModelFactory: LobbyViewModelFactory
 
     private lateinit var viewModel: MainViewModel
 
@@ -25,8 +30,7 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewModel = ViewModelProviders.of(this, mainViewModelFactory).get(MainViewModel::class.java)
     }
 
 }

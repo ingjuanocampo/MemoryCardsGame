@@ -10,7 +10,7 @@ import java.lang.Exception
 
 class LoadGameUseCase(private val repository: Repository) {
 
-    operator fun invoke(): ResultState {
+    operator fun invoke(): ResultState<MemoryGame> {
         return try {
             val user = repository.load()
             val gameCardList = repository.loadGameCards()

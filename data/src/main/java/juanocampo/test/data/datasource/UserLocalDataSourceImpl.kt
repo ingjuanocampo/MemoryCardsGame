@@ -28,8 +28,10 @@ class UserLocalDataSourceImpl(context: Context): UserLocalDataSource {
         val userId = preference.getString(USER_ID, "")
         val selectedMode = preference.getInt(SELECTED_MODE, 0)
         val matchedCards = preference.getStringSet(MATCHED_CARD, emptySet())
-        if (userId!= null && selectedMode!= null && matchedCards != null ) {
-            return UserCache(userId, selectedMode, matchedCards.toList())
+        if (userId!= null && matchedCards != null) {
+            val arrayList = ArrayList<String>()
+            arrayList.addAll(matchedCards)
+            return UserCache(userId, selectedMode, arrayList)
         } else {
             throw IllegalStateException("Nothing stored")
         }
