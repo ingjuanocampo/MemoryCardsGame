@@ -36,4 +36,9 @@ class UserLocalDataSourceImpl(context: Context): UserLocalDataSource {
             throw IllegalStateException("Nothing stored")
         }
     }
+
+    override fun clear() {
+        val edit = preference.edit()
+        edit.clear().commit()
+    }
 }

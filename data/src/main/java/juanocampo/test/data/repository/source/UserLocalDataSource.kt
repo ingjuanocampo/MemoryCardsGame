@@ -7,4 +7,6 @@ interface UserLocalDataSource {
     fun saveUser(user: UserCache)
 
     fun load(): UserCache
+
+    fun clear()
 }

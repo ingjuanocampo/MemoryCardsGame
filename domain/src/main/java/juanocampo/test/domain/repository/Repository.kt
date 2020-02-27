@@ -13,4 +13,6 @@ interface Repository {
     fun loadModeOptions(): List<GameOption>
 
     fun loadGameCards(): List<GameCard>
+
+    fun clear()
 }

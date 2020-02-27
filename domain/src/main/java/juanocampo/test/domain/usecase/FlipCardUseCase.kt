@@ -31,6 +31,7 @@ class FlipCardUseCase(val repository: Repository) {
                 return Match
             }
             else-> {
+                memoryGame.resetLastCardRevealed()
                 cardToFlip.isRevealed = false
                 cardToFlip.isRevealed = false
                 NonMatch

@@ -27,29 +27,34 @@ class GameViewModel(
     fun loadGame() = launch {
         when (val gameResult = loadGameUseCase()) {
             is SuccessState -> {
-                gameScreenStatusLiveData.postValue(GameLoaded(gameResult.data.gameCardList.map {
-                    GameCardViewType(
-                        it.id,
-                        it.imageRes,
-                        it.isFlip)
-                }, gameResult.data.grid))
                 memoryGame = gameResult.data
+                val gameList = getGameList()
+                gameScreenStatusLiveData.postValue(GameLoaded(gameList, gameResult.data.grid))
             }
             else -> gameScreenStatusLiveData.postValue(GameError)
         }
+    }
+
+    private fun getGameList(): List<GameCardViewType> {
+        return memoryGame?.gameCardList?.map {
+            GameCardViewType(
+                it.id,
+                it.imageRes,
+                it.isFlip || it.isRevealed
+            )
+        } ?: emptyList()
     }
 
     fun flipCard(positionToFlip: Int) = launch {
 
         if (memoryGame != null) {
             when (flipCardUseCase(memoryGame!!, positionToFlip)) {
-                is CardRevealed -> {
-                }
+                is CardRevealed ->  gameScreenStatusLiveData.postValue(FlipedScreen(getGameList()))
                 is WonGame -> gameScreenStatusLiveData.postValue(WonGameScreen)
-                is Match -> gameScreenStatusLiveData.postValue(MatchScreen)
+                is Match -> gameScreenStatusLiveData.postValue(MatchScreen(getGameList()))
                 is NonMatch -> {
                     delay(TimeUnit.SECONDS.toMillis(3))
-                    gameScreenStatusLiveData.postValue(NonMatchScreen)
+                    gameScreenStatusLiveData.postValue(NonMatchScreen(getGameList()))
                 }
             }
         } else {
@@ -64,5 +69,11 @@ class GameViewModel(
     override fun onCleared() {
         super.onCleared()
         job.cancel()
+    }
+
+    fun clearGame() = launch {
+        loadGameUseCase.clear()
+        gameScreenStatusLiveData.postValue(GameEndScreen)
+
     }
 }

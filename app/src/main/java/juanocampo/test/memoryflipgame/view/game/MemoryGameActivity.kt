@@ -1,6 +1,7 @@
 package juanocampo.test.memoryflipgame.view.game
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
@@ -14,7 +15,7 @@ import juanocampo.test.memoryflipgame.view.game.adapter.GameCardAdapter
 import kotlinx.android.synthetic.main.game_activity.*
 import javax.inject.Inject
 
-class MemoryGameActivity: BaseActivity() {
+class MemoryGameActivity : BaseActivity() {
 
     private lateinit var adapter: GameCardAdapter
     private lateinit var viewModel: GameViewModel
@@ -28,24 +29,32 @@ class MemoryGameActivity: BaseActivity() {
 
         viewModel = ViewModelProviders.of(this, gameViewModelFactory).get(GameViewModel::class.java)
 
-        recyclerGameCards.layoutManager = GridLayoutManager(this, 2)
-
         adapter = GameCardAdapter { onSelectedGameCard(it) }
 
         recyclerGameCards.adapter = adapter
 
         viewModel.gameScreenStatusLiveData.observe(this, Observer {
-            when(it) {
+            when (it) {
                 is GameLoaded -> {
+                    recyclerGameCards.layoutManager = GridLayoutManager(baseContext, it.grid.first)
                     adapter.addItems(it.gameList)
                 }
-                is WonGameScreen -> { }
-                is MatchScreen -> { }
-                is NonMatchScreen -> {
-
+                is WonGameScreen -> {
+                    Toast.makeText(baseContext, "Won the game!", Toast.LENGTH_SHORT).show()
+                    viewModel.clearGame()
                 }
-                else  -> { }
-             }
+                is MatchScreen -> {
+                    adapter.addItems(it.gameList)
+                }
+                is NonMatchScreen -> {
+                    adapter.addItems(it.gameList)
+                }
+                is FlipedScreen -> adapter.addItems(it.gameList)
+                is GameEndScreen -> finish()
+                else -> {
+                    Toast.makeText(baseContext, "Something went wrong", Toast.LENGTH_SHORT).show()
+                }
+            }
         })
 
         viewModel.loadGame()

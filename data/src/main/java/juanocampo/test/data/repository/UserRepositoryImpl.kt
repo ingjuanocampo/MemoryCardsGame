@@ -36,4 +36,8 @@ internal class UserRepositoryImpl(
             )
         }
     }
+
+    override fun clear() {
+        userLocalDataSource.clear()
+    }
 }

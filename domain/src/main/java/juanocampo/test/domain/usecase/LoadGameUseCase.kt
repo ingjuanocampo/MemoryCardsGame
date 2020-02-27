@@ -26,4 +26,8 @@ class LoadGameUseCase(private val repository: Repository) {
         }
     }
 
+    fun clear() {
+        repository.clear()
+    }
+
 }
