@@ -18,4 +18,8 @@ class MemoryGame(val grid: Pair<Int, Int>,
         return flipedCount
     }
 
+    fun resetLastCardRevealed() {
+        lastRevealedPosition = -1
+    }
+
 }

@@ -1,4 +1,4 @@
-package juanocampo.test.memoryflipgame.presentation.viewmodel
+package juanocampo.test.memoryflipgame.presentation.viewmodel.lobby
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,7 +26,11 @@ class LobbyViewModel(private val loadOptionUseCase: LoadOptionUseCase,
              is SuccessState -> {
                  val mapped = optionsResult.data.map {
                      GameOptionViewType("${it.gridOption.first} x ${it.gridOption.second}", it.id) }
-                 lobbyScreenStatusLiveData.postValue(OptionsLoaded(mapped))
+                 lobbyScreenStatusLiveData.postValue(
+                     OptionsLoaded(
+                         mapped
+                     )
+                 )
              }
              else -> {
                  lobbyScreenStatusLiveData.postValue(OptionError)

@@ -15,15 +15,26 @@ class FlipCardUseCase(val repository: Repository) {
         val isGameWon = flipedCount == memoryGame.gameCardList.size
 
         return when {
-            otherCard == null -> CardRevealed
             isGameWon -> WonGame
+
+            otherCard == null -> {
+                memoryGame.lastRevealedPosition = positionToFlip
+                CardRevealed
+            }
             cardToFlip.isRevealed && otherCard.isRevealed && otherCard.id == cardToFlip.id-> {
                 val user = repository.load()
+                cardToFlip.isFlip = true
+                otherCard.isFlip = true
+                memoryGame.resetLastCardRevealed()
                 user.matchedCards.add(otherCard.id)
                 repository.saveUser(user)
                 return Match
             }
-            else-> NonMatch
+            else-> {
+                cardToFlip.isRevealed = false
+                cardToFlip.isRevealed = false
+                NonMatch
+            }
         }
     }
 }

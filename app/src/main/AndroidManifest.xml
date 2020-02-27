@@ -12,13 +12,17 @@
         android:supportsRtl="true"
         android:name=".App"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.lobby.MainActivity">
+        <activity android:name=".view.lobby.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".view.game.MemoryGameActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

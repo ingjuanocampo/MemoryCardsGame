@@ -1,5 +1,6 @@
 package juanocampo.test.memoryflipgame.view.lobby
 
+import android.content.Intent
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,12 +11,13 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import juanocampo.test.memoryflipgame.R
 import juanocampo.test.memoryflipgame.presentation.entities.GameOptionViewType
-import juanocampo.test.memoryflipgame.presentation.entities.OptionError
-import juanocampo.test.memoryflipgame.presentation.entities.OptionSaved
-import juanocampo.test.memoryflipgame.presentation.entities.OptionsLoaded
-import juanocampo.test.memoryflipgame.presentation.viewmodel.LobbyViewModel
-import juanocampo.test.memoryflipgame.presentation.viewmodel.factory.LobbyViewModelFactory
+import juanocampo.test.memoryflipgame.presentation.viewmodel.lobby.OptionError
+import juanocampo.test.memoryflipgame.presentation.viewmodel.lobby.OptionSaved
+import juanocampo.test.memoryflipgame.presentation.viewmodel.lobby.OptionsLoaded
+import juanocampo.test.memoryflipgame.presentation.viewmodel.lobby.LobbyViewModel
+import juanocampo.test.memoryflipgame.presentation.viewmodel.lobby.factory.LobbyViewModelFactory
 import juanocampo.test.memoryflipgame.view.base.fragment.BaseFragment
+import juanocampo.test.memoryflipgame.view.game.MemoryGameActivity
 import juanocampo.test.memoryflipgame.view.lobby.adapter.LobbyAdapter
 import kotlinx.android.synthetic.main.main_fragment.*
 import javax.inject.Inject
@@ -59,7 +61,7 @@ class LobbyFragment : BaseFragment() {
                         adapter.addItems(it.options)
                     }
                     is OptionSaved -> {
-                        // Navigate
+                        startActivity(Intent(requireContext(), MemoryGameActivity::class.java))
                     }
                     is OptionError -> {
                         Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT).show()

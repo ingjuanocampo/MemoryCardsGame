@@ -5,6 +5,7 @@ import dagger.android.ContributesAndroidInjector
 import juanocampo.test.memoryflipgame.view.lobby.MainActivity
 import juanocampo.test.memoryflipgame.di.PresentationScope
 import juanocampo.test.memoryflipgame.presentation.di.PresentationModule
+import juanocampo.test.memoryflipgame.view.game.MemoryGameActivity
 import juanocampo.test.memoryflipgame.view.lobby.LobbyFragment
 
 
@@ -18,6 +19,10 @@ abstract class ActivityModule {
     @PresentationScope
     @ContributesAndroidInjector(modules = [PresentationModule::class])
     abstract fun lobbyFragment(): LobbyFragment
+
+    @PresentationScope
+    @ContributesAndroidInjector(modules = [PresentationModule::class])
+    abstract fun memoryGameActivity(): MemoryGameActivity
 
 
 }

@@ -1,4 +1,6 @@
-package juanocampo.test.memoryflipgame.presentation.entities
+package juanocampo.test.memoryflipgame.presentation.viewmodel.lobby
+
+import juanocampo.test.memoryflipgame.presentation.entities.GameOptionViewType
 
 sealed class LobbyScreenStatus
 
