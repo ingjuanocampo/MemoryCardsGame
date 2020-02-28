@@ -18,6 +18,8 @@ class GameViewModel(
 ) : ViewModel(),
     CoroutineScope {
 
+    private var jobs: ArrayList<Job> = ArrayList()
+
     private var memoryGame: MemoryGame? = null
     private val job: Job = Job()
 
@@ -38,23 +40,37 @@ class GameViewModel(
     private fun getGameList(): List<GameCardViewType> {
         return memoryGame?.gameCardList?.map {
             GameCardViewType(
-                it.id,
+                it.cardId,
                 it.imageRes,
-                it.isFlip || it.isRevealed
+                it.isFlip || it.isRevealed,
+                it.index
             )
         } ?: emptyList()
     }
 
     fun flipCard(positionToFlip: Int) = launch {
 
+        jobs.forEach {
+            it.cancelAndJoin()// Wait first re quest if there was
+        }
+
+        val flipJob = launch {
+            doFliping(positionToFlip)
+        }
+
+        jobs.add(flipJob)
+    }
+
+    private suspend fun doFliping(positionToFlip: Int) {
         if (memoryGame != null) {
             when (flipCardUseCase(memoryGame!!, positionToFlip)) {
-                is CardRevealed ->  gameScreenStatusLiveData.postValue(FlipedScreen(getGameList()))
+                is CardRevealed -> gameScreenStatusLiveData.postValue(FlipedScreen(getGameList()))
                 is WonGame -> gameScreenStatusLiveData.postValue(WonGameScreen)
                 is Match -> gameScreenStatusLiveData.postValue(MatchScreen(getGameList()))
                 is NonMatch -> {
-                    delay(TimeUnit.SECONDS.toMillis(3))
-                    gameScreenStatusLiveData.postValue(NonMatchScreen(getGameList()))
+                    val list = getGameList()
+                    delay(TimeUnit.SECONDS.toMillis(1))
+                    gameScreenStatusLiveData.postValue(NonMatchScreen(list))
                 }
             }
         } else {

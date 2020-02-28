@@ -6,7 +6,7 @@ class MemoryGame(val grid: Pair<Int, Int>,
 
     fun getLastRevealedGameCard(): GameCard? {
         return if (lastRevealedPosition >= 0) gameCardList[lastRevealedPosition] else null
-    }
+      }
 
     fun getFlipedCount(): Int {
         var flipedCount = 0

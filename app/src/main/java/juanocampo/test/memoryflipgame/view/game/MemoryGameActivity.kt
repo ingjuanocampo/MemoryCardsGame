@@ -62,7 +62,11 @@ class MemoryGameActivity : BaseActivity() {
     }
 
     private fun onSelectedGameCard(gameCardViewType: GameCardViewType) {
-        viewModel.flipCard(adapter.items.indexOf(gameCardViewType))
+        adapter.items.removeAt(gameCardViewType.index)
+        gameCardViewType.isRevealed = true
+        adapter.items.add(gameCardViewType.index, gameCardViewType)
+        adapter.notifyItemChanged(gameCardViewType.index)
+        viewModel.flipCard(gameCardViewType.index)
     }
 
 

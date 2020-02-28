@@ -16,11 +16,19 @@ class LoadGameUseCase(private val repository: Repository) {
             val gameCardList = repository.loadGameCards()
             val options = repository.loadModeOptions()
             val selectedGrid = options.first { it.id == user.selectedGameOptionId }
-            val doubleCard = arrayListOf<GameCard>()
-            doubleCard.addAll(gameCardList)
-            doubleCard.addAll(gameCardList)
-            doubleCard.shuffle()
-            SuccessState(MemoryGame(selectedGrid.gridOption, doubleCard))
+            var doubleCardList = arrayListOf<GameCard>()
+            gameCardList.forEach {
+                doubleCardList.add(it.copy())
+                doubleCardList.add(it.copy())
+            }
+            doubleCardList.shuffle()
+
+            doubleCardList.forEachIndexed { index, gameCard ->
+                run {
+                    gameCard.index = index
+                }
+            }
+            SuccessState(MemoryGame(selectedGrid.gridOption, doubleCardList))
         } catch (e: Exception) {
             ErrorState(e)
         }
