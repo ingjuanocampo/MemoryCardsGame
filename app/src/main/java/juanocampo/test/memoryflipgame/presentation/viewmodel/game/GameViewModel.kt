@@ -18,11 +18,10 @@ class GameViewModel(
 ) : ViewModel(),
     CoroutineScope {
 
-
+    private var gameStatusJob: Job? = null
     private  var flipJob: Job? = null
     private var memoryGame: MemoryGame? = null
     private val job: Job = Job()
-
 
     val gameScreenStatusLiveData = MutableLiveData<GameScreenStatus>()
 
@@ -50,20 +49,23 @@ class GameViewModel(
 
     fun flipCard(positionToFlip: Int) = launch {
 
-        flipJob?.cancel()// Wait first re quest if there was
+        flipJob?.cancel()// cancel before flip job
+        gameStatusJob?.cancel()
 
         flipJob = launch {
             doFliping(positionToFlip)
         }
-
+        gameStatusJob?.join()
     }
 
     private suspend fun doFliping(positionToFlip: Int) {
         if (memoryGame != null) {
             when (flipCardUseCase(memoryGame!!, positionToFlip)) {
                 is CardRevealed -> gameScreenStatusLiveData.postValue(FlipedScreen(getGameList()))
-                is WonGame -> gameScreenStatusLiveData.postValue(WonGameScreen)
-                is Match -> gameScreenStatusLiveData.postValue(MatchScreen(getGameList()))
+                is Match -> {
+                    gameScreenStatusLiveData.postValue(MatchScreen(getGameList()))
+                    gameStatusJob = checkForGameStatus()
+                }
                 is NonMatch -> {
                     delay(TimeUnit.SECONDS.toMillis(1))
                     val list = getGameList()
@@ -75,6 +77,13 @@ class GameViewModel(
         }
     }
 
+    private fun checkForGameStatus() = launch {
+        when(flipCardUseCase.didWonTheGame(memoryGame!!)) {
+            is WonGame -> gameScreenStatusLiveData.postValue(WonGameScreen)
+            else -> { // Just continue playing }
+            }
+        }
+    }
 
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.IO

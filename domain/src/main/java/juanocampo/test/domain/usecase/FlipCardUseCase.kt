@@ -6,16 +6,13 @@ import juanocampo.test.domain.state.*
 
 class FlipCardUseCase(val repository: Repository) {
 
-    operator fun invoke(memoryGame: MemoryGame, positionToFlip: Int): GameStatus {
+    operator fun invoke(memoryGame: MemoryGame, positionToFlip: Int): FlipStatus {
 
         val cardToFlip = memoryGame.gameCardList[positionToFlip]
         cardToFlip.isRevealed = true
         val otherCard = memoryGame.getLastRevealedGameCard()
-        val flipedCount = memoryGame.getFlipedCount()
-        val isGameWon = flipedCount == memoryGame.gameCardList.size
 
         return when {
-            isGameWon -> WonGame
             otherCard == null -> {
                 memoryGame.lastRevealedPosition = positionToFlip
                 CardRevealed
@@ -36,5 +33,11 @@ class FlipCardUseCase(val repository: Repository) {
                 NonMatch
             }
         }
+    }
+
+    fun didWonTheGame(memoryGame: MemoryGame): GameStatus {
+        val flipedCount = memoryGame.getFlipedCount()
+        val isGameWon = flipedCount == memoryGame.gameCardList.size
+        return if (isGameWon) WonGame else GamePlay
     }
 }
