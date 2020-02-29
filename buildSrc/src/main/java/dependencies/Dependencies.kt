@@ -15,10 +15,10 @@ object Dependencies {
 
     const val picasso = "com.squareup.picasso:picasso:$picassoVersion"
 
-    const val extensions =  "androidx.lifecycle:lifecycle-extensions:2.2.0"
-    const val viewModel =  "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
-    const val liveDataLifeCycle = "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0-alpha01"
-    const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-alpha01"
+    const val extensions =  "androidx.lifecycle:lifecycle-extensions:$architectureComponentVersion"
+    const val viewModel =  "androidx.lifecycle:lifecycle-viewmodel-ktx:$architectureComponentVersion"
+    const val liveDataLifeCycle = "androidx.lifecycle:lifecycle-runtime-ktx:$architectureComponentVersion"
+    const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:$architectureComponentVersion"
 
     const val kotlinStdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     const val appCompat = "androidx.appcompat:appcompat:$androidXVersion"
