@@ -12,16 +12,15 @@ class SettingLocalDataSourceImpl: SettingLocalDataSource {
     }
 
     override fun loadGameCards(): List<GameCardCache>  = listOf(
-        GameCardCache("1", R.drawable.bat),
-        GameCardCache("2", R.drawable.chicken),
-        GameCardCache("3", R.drawable.chicken),
-        GameCardCache("4", R.drawable.cowd),
-        GameCardCache("5", R.drawable.dragon),
-        GameCardCache("6", R.drawable.ghost),
-        GameCardCache("7", R.drawable.hourse),
-        GameCardCache("8", R.drawable.man),
-        GameCardCache("9", R.drawable.pig),
-        GameCardCache("10", R.drawable.spider)
+        GameCardCache("bat", R.drawable.bat),
+        GameCardCache("chicken", R.drawable.chicken),
+        GameCardCache("cowd", R.drawable.cowd),
+        GameCardCache("dragon", R.drawable.dragon),
+        GameCardCache("ghost", R.drawable.ghost),
+        GameCardCache("hourse", R.drawable.hourse),
+        GameCardCache("man", R.drawable.man),
+        GameCardCache("pig", R.drawable.pig),
+        GameCardCache("spider", R.drawable.spider)
     )
 
 }

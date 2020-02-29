@@ -21,10 +21,10 @@ class FlipCardUseCase(val repository: Repository) {
                 CardRevealed
             }
             cardToFlip.isRevealed && otherCard.isRevealed && otherCard.cardId == cardToFlip.cardId-> {
-                val user = repository.load()
                 cardToFlip.isFlip = true
                 otherCard.isFlip = true
                 memoryGame.resetLastCardRevealed()
+                val user = repository.load()
                 user.matchedCards.add(otherCard.cardId)
                 repository.saveUser(user)
                 return Match

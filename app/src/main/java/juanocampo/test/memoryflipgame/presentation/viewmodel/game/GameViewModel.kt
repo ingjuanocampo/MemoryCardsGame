@@ -18,8 +18,8 @@ class GameViewModel(
 ) : ViewModel(),
     CoroutineScope {
 
-    private var jobs: ArrayList<Job> = ArrayList()
 
+    private  var flipJob: Job? = null
     private var memoryGame: MemoryGame? = null
     private val job: Job = Job()
 
@@ -50,15 +50,12 @@ class GameViewModel(
 
     fun flipCard(positionToFlip: Int) = launch {
 
-        jobs.forEach {
-            it.cancelAndJoin()// Wait first re quest if there was
-        }
+        flipJob?.cancel()// Wait first re quest if there was
 
-        val flipJob = launch {
+        flipJob = launch {
             doFliping(positionToFlip)
         }
 
-        jobs.add(flipJob)
     }
 
     private suspend fun doFliping(positionToFlip: Int) {
@@ -68,8 +65,8 @@ class GameViewModel(
                 is WonGame -> gameScreenStatusLiveData.postValue(WonGameScreen)
                 is Match -> gameScreenStatusLiveData.postValue(MatchScreen(getGameList()))
                 is NonMatch -> {
-                    val list = getGameList()
                     delay(TimeUnit.SECONDS.toMillis(1))
+                    val list = getGameList()
                     gameScreenStatusLiveData.postValue(NonMatchScreen(list))
                 }
             }

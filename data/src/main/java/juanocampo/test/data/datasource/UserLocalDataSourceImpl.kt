@@ -21,7 +21,7 @@ class UserLocalDataSourceImpl(context: Context): UserLocalDataSource {
         edit.putString(USER_ID, user.id)
         edit.putInt(SELECTED_MODE, user.selectedMode)
         edit.putStringSet(MATCHED_CARD, user.matchedCards.toMutableSet())
-        edit.commit()
+        edit.apply()
     }
 
     override fun load(): UserCache {
@@ -39,6 +39,6 @@ class UserLocalDataSourceImpl(context: Context): UserLocalDataSource {
 
     override fun clear() {
         val edit = preference.edit()
-        edit.clear().commit()
+        edit.clear().apply()
     }
 }
