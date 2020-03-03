@@ -36,7 +36,8 @@ class MemoryGameActivity : BaseActivity() {
         viewModel.gameScreenStatusLiveData.observe(this, Observer {
             when (it) {
                 is GameLoaded -> {
-                    recyclerGameCards.layoutManager = GridLayoutManager(baseContext, it.grid.first)
+                    val manager = GridLayoutManager(baseContext, it.grid.first)
+                    recyclerGameCards.layoutManager = manager
                     adapter.addItems(it.gameList)
                 }
                 is WonGameScreen -> {
@@ -68,6 +69,4 @@ class MemoryGameActivity : BaseActivity() {
         adapter.notifyItemChanged(gameCardViewType.index)
         viewModel.flipCard(gameCardViewType.index)
     }
-
-
 }

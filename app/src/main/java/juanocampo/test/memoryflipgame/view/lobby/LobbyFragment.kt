@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import juanocampo.test.memoryflipgame.R
 import juanocampo.test.memoryflipgame.presentation.entities.GameOptionViewType
@@ -49,7 +50,7 @@ class LobbyFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rvSettings.layoutManager = LinearLayoutManager(requireContext())
+        rvSettings.layoutManager = GridLayoutManager(requireContext(), 2)
         val adapter = LobbyAdapter { onSettingSelected(it) }
         rvSettings.adapter = adapter
 

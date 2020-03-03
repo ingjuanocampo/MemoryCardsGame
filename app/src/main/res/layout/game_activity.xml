@@ -7,11 +7,13 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_gravity="center"
         android:id="@+id/recyclerGameCards"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/game_card_item"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="3"
         />
 
 </LinearLayout>

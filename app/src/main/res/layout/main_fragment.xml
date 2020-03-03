@@ -7,13 +7,32 @@
     android:layout_height="match_parent"
     tools:context=".view.lobby.LobbyFragment">
 
+
+    <TextView
+        android:id="@+id/lobby_title"
+        android:paddingTop="@dimen/margin_normal"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="@android:color/holo_blue_light"
+        android:text="Select the Game Mode"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSettings"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/lobby_title"
+        app:spanCount="2"
+        tools:listitem="@layout/lobby_setting_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
