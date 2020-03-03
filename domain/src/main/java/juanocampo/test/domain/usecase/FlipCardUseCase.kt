@@ -9,6 +9,10 @@ class FlipCardUseCase(val repository: Repository) {
     operator fun invoke(memoryGame: MemoryGame, positionToFlip: Int): FlipStatus {
 
         val cardToFlip = memoryGame.gameCardList[positionToFlip]
+        if (cardToFlip.isRevealed) {
+            return FlipDone
+        }
+
         cardToFlip.isRevealed = true
         val otherCard = memoryGame.getLastRevealedGameCard()
 
@@ -18,8 +22,10 @@ class FlipCardUseCase(val repository: Repository) {
                 CardRevealed
             }
             cardToFlip.isRevealed && otherCard.isRevealed && otherCard.cardId == cardToFlip.cardId-> {
-                cardToFlip.isFlip = true
-                otherCard.isFlip = true
+                memoryGame.gameCardList[cardToFlip.index].isFlip = true
+                memoryGame.gameCardList[otherCard.index].isFlip = true
+                memoryGame.gameCardList[cardToFlip.index].isRevealed = true
+                memoryGame.gameCardList[otherCard.index].isRevealed = true
                 memoryGame.resetLastCardRevealed()
                 val user = repository.load()
                 user.matchedCards.add(otherCard.cardId)
@@ -28,8 +34,8 @@ class FlipCardUseCase(val repository: Repository) {
             }
             else-> {
                 memoryGame.resetLastCardRevealed()
-                cardToFlip.isRevealed = false
-                otherCard.isRevealed = false
+                memoryGame.gameCardList[cardToFlip.index].isRevealed = false
+                memoryGame.gameCardList[otherCard.index].isRevealed = false
                 NonMatch
             }
         }

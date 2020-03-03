@@ -70,7 +70,7 @@ class GameViewModel(
                     delay(TimeUnit.SECONDS.toMillis(1))
                     val list = getGameList()
                     gameScreenStatusLiveData.postValue(NonMatchScreen(list))
-                }
+                } is FlipDone -> { /* Flip done, nothing to do for now */}
             }
         } else {
             gameScreenStatusLiveData.postValue(GameError)
