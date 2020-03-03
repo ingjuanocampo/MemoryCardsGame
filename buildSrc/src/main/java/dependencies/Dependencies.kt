@@ -25,6 +25,8 @@ object Dependencies {
     const val androidCore = "androidx.core:core-ktx:$androidXVersion"
     const val constraitLayout = "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
     const val recyclerView = "androidx.recyclerview:recyclerview:$recyclerViewXVersion"
+
+    const val lottie = "com.airbnb.android:lottie:$lottieVersion"
 }
 
 object Android {

@@ -1,6 +1,8 @@
 package juanocampo.test.memoryflipgame.view.game
 
+import android.animation.Animator
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -41,13 +43,16 @@ class MemoryGameActivity : BaseActivity() {
                     adapter.addItems(it.gameList)
                 }
                 is WonGameScreen -> {
+                    playAnimation(R.raw.winner)
                     Toast.makeText(baseContext, "Won the game!", Toast.LENGTH_SHORT).show()
                     viewModel.clearGame()
                 }
                 is MatchScreen -> {
+                    playAnimation(R.raw.match)
                     adapter.addItems(it.gameList)
                 }
                 is NonMatchScreen -> {
+                    playAnimation(R.raw.no_match)
                     adapter.addItems(it.gameList)
                 }
                 is FlipedScreen -> adapter.addItems(it.gameList)
@@ -60,9 +65,38 @@ class MemoryGameActivity : BaseActivity() {
 
         viewModel.loadGame()
 
+        animation_view.addAnimatorListener(object : Animator.AnimatorListener {
+            override fun onAnimationEnd(animation: Animator?) {
+                animation_view.visibility = View.GONE
+            }
+
+            override fun onAnimationCancel(animation: Animator?) {
+            }
+
+            override fun onAnimationStart(animation: Animator?) {
+            }
+
+            override fun onAnimationRepeat(animation: Animator?) {
+            }
+
+        })
+
+    }
+
+    private fun stopAnimation() {
+        animation_view.visibility  = View.GONE
+        animation_view.cancelAnimation()
+    }
+
+    private fun playAnimation(animationId: Int) {
+        animation_view.setAnimation(animationId)
+
+        animation_view.visibility  = View.VISIBLE
+        animation_view.playAnimation()
     }
 
     private fun onSelectedGameCard(gameCardViewType: GameCardViewType) {
+        stopAnimation()
         adapter.items.removeAt(gameCardViewType.index)
         gameCardViewType.isRevealed = true
         adapter.items.add(gameCardViewType.index, gameCardViewType)

@@ -11,6 +11,7 @@ internal const val recyclerViewXVersion = "1.0.0"
 internal const val constraintLayoutVersion = "1.1.3"
 internal const val picassoVersion = "2.71828"
 internal const val architectureComponentVersion = "2.2.0"
+internal const val lottieVersion = "3.4.0"
 
 // Unit tests
 internal const val mockitoVersion = "2.13.0"

@@ -95,6 +95,7 @@ class GameViewModel(
 
     fun clearGame() = launch {
         loadGameUseCase.clear()
+        delay(TimeUnit.SECONDS.toMillis(3))
         gameScreenStatusLiveData.postValue(GameEndScreen)
 
     }

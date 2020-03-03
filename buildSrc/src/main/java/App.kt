@@ -20,6 +20,7 @@ fun DependencyHandler.appDependencies() {
     implementation(Dependencies.kotlinStdlib)
     implementation(Dependencies.constraitLayout)
     implementation(Dependencies.recyclerView)
+    implementation(Dependencies.lottie)
     testAndroidDependencies()
 }
 
