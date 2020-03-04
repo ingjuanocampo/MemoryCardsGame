@@ -20,7 +20,9 @@ class SettingLocalDataSourceImpl: SettingLocalDataSource {
         GameCardCache("hourse", R.drawable.hourse),
         GameCardCache("man", R.drawable.man),
         GameCardCache("pig", R.drawable.pig),
-        GameCardCache("spider", R.drawable.spider)
+        GameCardCache("spider", R.drawable.spider),
+        GameCardCache("cat", R.drawable.cat)
+
     )
 
 }

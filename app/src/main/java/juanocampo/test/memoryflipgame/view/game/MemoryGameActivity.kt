@@ -7,6 +7,8 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import juanocampo.test.memoryflipgame.R
 import juanocampo.test.memoryflipgame.presentation.entities.GameCardViewType
 import juanocampo.test.memoryflipgame.presentation.viewmodel.*
@@ -39,12 +41,12 @@ class MemoryGameActivity : BaseActivity() {
             when (it) {
                 is GameLoaded -> {
                     val manager = GridLayoutManager(baseContext, it.grid.first)
+                    manager.orientation = LinearLayoutManager.VERTICAL
                     recyclerGameCards.layoutManager = manager
                     adapter.addItems(it.gameList)
                 }
                 is WonGameScreen -> {
                     playAnimation(R.raw.winner)
-                    Toast.makeText(baseContext, "Won the game!", Toast.LENGTH_SHORT).show()
                     viewModel.clearGame()
                 }
                 is MatchScreen -> {
@@ -80,6 +82,10 @@ class MemoryGameActivity : BaseActivity() {
             }
 
         })
+
+        backButton.setOnClickListener {
+            finish()
+        }
 
     }
 
