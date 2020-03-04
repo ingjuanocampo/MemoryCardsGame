@@ -6,7 +6,7 @@ Choose the mode, play and Flip the cards to find the match!
 ![Application](https://raw.githubusercontent.com/ingjuanocampo/MemoryCardsGame/master/gif_test.gif)
 
 
-
+Free lottie animation from: https://lottiefiles.com/ 
 
 ## Clean Architecture with MVVM 
 
